@@ -13,11 +13,13 @@ module legs(thicknes=2) {
       
       
       // Löcher Anschlüsse
-      translate([50,-20,124.5]) cube([10,5,18], center = true);
-      translate([50,-27,124.5]) cube([10,5,18], center = true);
-      translate([50,-34,124.5]) cube([10,5,18], center = true);
-      translate([50,-13,124.5]) cube([10,5,18], center = true);
-      translate([50,-6,124.5]) cube([10,5,18], center = true);
+      if (thickness == 2) {
+          translate([50,-20,124.5]) cube([10,5,18], center = true);
+          translate([50,-27,124.5]) cube([10,5,18], center = true);
+          translate([50,-34,124.5]) cube([10,5,18], center = true);
+          translate([50,-13,124.5]) cube([10,5,18], center = true);
+          translate([50,-6,124.5]) cube([10,5,18], center = true);
+      }
       
       // Schraubenlöcher unten
       translate([60,0,8]) rotate([0,90,0]) cylinder(h = 8, r = 1.7, $fn = 64, center = true);
@@ -209,7 +211,7 @@ module control() {
         legs(thicknes=10);
         
         // Löscher
-        translate([-6,-47,135]) cube([28,8,6], center = true);
+        translate([-3,-47,135]) cube([22,8,6], center = true);
         translate([22,-47,135]) cube([20,8,6], center = true);
         translate([-6,8,135]) cube([28,8,6], center = true);
         translate([26,8,135]) cube([28,8,6], center = true);
@@ -329,7 +331,6 @@ translate([28,31,0]) rotate([0,0,-90]) halterungen();
 translate([28,-31,0]) rotate([0,0,-90]) halterungen();
 */
 
-   
        
 module shoulders() {       
         difference() {
@@ -371,9 +372,6 @@ module torso() {
        
 }    
 
-
-
-
 module torso_side() {  
     difference() {
         union() {
@@ -388,12 +386,7 @@ module torso_side() {
         legs();
         schrauben_legs_upper();
      }
-
-   
 }
-
-
-
 
 module torso_back() { 
     difference() {
@@ -412,30 +405,83 @@ module torso_front() {
 
 module skeleton_pillar() {
   difference() {   
-    cube([15,15,85], center=true);
-    translate([-3,-3,2]) cube([15,15,85],center = true);
+    cube([15,15,90], center=true);
+    translate([-3,-3,0]) cube([15,15,82],center = true);
   }
+}
+
+
+module servo_plate() {
+    difference() {
+        union() {
+            
+            // Platte
+            translate([9.5,0,226.5]) cube([76,103,3], center=true);
+            
+            // Halterungen Motor
+            translate([44,-37,237]) cube([7,3,20], center=true);
+            translate([44,37,237]) cube([7,3,20], center=true);
+            translate([-4,-37,237]) cube([7,3,20], center=true);
+            translate([-4,37,237]) cube([7,3,20], center=true);
+            
+            //Fixierung Motor
+            translate([44,0,230]) cube([7,30,5], center=true);
+            translate([-4,0,230]) cube([7,30,5], center=true);
+            
+        }
+        translate([9,0,230]) loecher_cables_control(false);
+
+        
+        // Schraubenlöcher für Servos
+        translate([45.5,37,242.5]) rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center = true);
+        translate([45.5,37,233]) rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center = true);
+        translate([45.5,-37,242.5]) rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center = true);
+        translate([45.5,-37,233]) rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center = true);
+        
+        translate([-5,37,242.5]) rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center = true);
+        translate([-5,37,233]) rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center = true);
+        translate([-5,-37,242.5]) rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center = true);
+        translate([-5.5,-37,233]) rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center = true);
+        
+        translate([-5,-4.5,242.5]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
+        translate([-5,4.5,242.5]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
+
+        translate([45.5,-4.5,242.5]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
+        translate([45.5,4.5,242.5]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
+        
+    }
 }
 
 module skeleton() {
     
     difference() {
         union() {
-            translate([40,44,178]) skeleton_pillar();
-            mirror([0,1,0]) translate([40,44,178])  skeleton_pillar();
-            translate([-21,44,178]) mirror([1,0,0])   skeleton_pillar();
-            translate([-21,-44,178]) mirror([1,1,0])   skeleton_pillar();
+            translate([40,44,180]) skeleton_pillar();
+            mirror([0,1,0]) translate([40,44,180])  skeleton_pillar();
+            translate([-21,44,180]) mirror([1,0,0])   skeleton_pillar();
+            translate([-21,-44,180]) mirror([1,1,0])   skeleton_pillar();
+            
         }
-        translate([40,44,178]) skeleton_pillar();
         translate([9,0,135]) loecher_cables_control();
         translate([13,28,135]) loecher_esp32();
+        
+        //loecher-pillars
+        translate([9,0,226.5]) {
+            translate([33,46,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
+            translate([-29,43,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
+            translate([33,-46,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
+            translate([-29,-43,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
+        }
+        
     }
 }
 
 
 
-module loecher_cables_control() {
-    translate([-14,0,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
+module loecher_cables_control(middle=true) {
+    if (middle == true) {
+        translate([-14,0,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
+    }
     translate([33,46,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
     translate([-29,43,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
     translate([33,-46,0]) cylinder(h = 15, r = 1.7, $fn = 64, center = true);
@@ -443,28 +489,27 @@ module loecher_cables_control() {
 }
 
 
-
-translate([0,-10.5,228]) rotate([90,0,0])#servo();
-translate([0,10.5,248]) rotate([270,0,0])#servo();
-
-translate([0,-10,228]) #servo(53);
-
+module servos() {
+    translate([0,-10.5,228]) rotate([90,0,0])#servo();
+    translate([0,10.5,248]) rotate([270,0,0])#servo();
+    translate([0,-10,228]) #servo(53);
+}
 
 //bottom();
 //battery();
-//rotate([180,0,0]) 
-//cables();
-//rotate([180,0,0]) 
-control();
-legs();
-torso_side();
+// rotate([180,0,0]) cables();
+//rotate([180,0,0]) control();
+servos();
+//legs();
+//torso_side();
 //mirror([0, 1, 0]) { torso_side(); }
 //torso_front();
 //torso_back();
 //skeleton();
+servo_plate();
 //torso();
 
-shoulders();
+//shoulders();
 
 //neck();
 //head();
