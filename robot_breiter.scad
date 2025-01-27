@@ -328,6 +328,16 @@ translate([28,31,0]) rotate([0,0,-90]) halterungen();
 translate([28,-31,0]) rotate([0,0,-90]) halterungen();
 */
 
+
+module shoulder_front() {
+    
+    difference() {
+        shoulders();
+        translate([60, 0, 270]) cube([100, 120, 50], center = true);
+
+    }
+
+}
        
 module shoulders(thickness=0) {       
         difference() {
@@ -342,12 +352,22 @@ module shoulders(thickness=0) {
             translate([0, 0, -24]) cube([82, 120, 50], center = true);
             translate([-0.5, 33,0]) rotate([0,90,0]) cylinder(h = 77, r = 20, $fn = 64, center = true);
             translate([-0.5, -33,0]) rotate([0,90,0]) cylinder(h = 77, r = 20, $fn = 64, center = true);
-            translate([0, 0, 23]) cylinder(h = 8, r = 24, $fn = 64, center = true);
+            translate([0, 0, 23]) cylinder(h = 8, r = 23.65, $fn = 64, center = true);
             translate([0, 0, 24]) cylinder(h = 20, r = 20, $fn = 64, center = true);
             
+            translate([0, 28, 24]) cube([70, 5, 4], center = true);
+            translate([0, -28, 24]) cube([70, 5, 4], center = true);
+
+            
+
            }
            
            torso_side();
+           translate([10, -50, 259]) cube([25, 10, 10], center = true);
+           mirror([0, 1, 0]) torso_side(); 
+           translate([10, 50, 259]) cube([25, 10, 10], center = true);
+
+           loecher_skeleton();
        }   
 }
 
@@ -510,9 +530,6 @@ module skeleton_back(remove_shoulder=true) {
  
         translate([43,-4.5,271]) cylinder(h = 20, r = 3, $fn = 64, center = true);
         translate([43,4.5,271]) cylinder(h = 20, r = 3, $fn = 64, center = true);
-
-        translate([41,20,271]) cylinder(h = 20, r = 1.7, $fn = 64, center = true);
-        translate([41,-20,271]) cylinder(h = 20, r = 1.7, $fn = 64, center = true);
         
         schrauben_legs_upper();
         if (remove_shoulder) {
@@ -523,6 +540,7 @@ module skeleton_back(remove_shoulder=true) {
         loecher_side();
     }
 }
+
 module skeleton_front(remove_shoulder=true) {
         difference() {
            union() {
@@ -534,8 +552,7 @@ module skeleton_front(remove_shoulder=true) {
         }
         translate([9,0,135]) loecher_cables_control();
 
-        translate([-21,20,271]) cylinder(h = 20, r = 1.7, $fn = 64, center = true);
-        translate([-21,-20,271]) cylinder(h = 20, r = 1.7, $fn = 64, center = true);
+        loecher_skeleton();
 
         schrauben_legs_upper();
         if (remove_shoulder) {
@@ -546,6 +563,13 @@ module skeleton_front(remove_shoulder=true) {
     }
 }
 
+module loecher_skeleton() {
+    translate([-21,20,271]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
+    translate([-21,-20,271]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
+
+    translate([41,20,271]) cylinder(h = 20, r = 1.7, $fn = 64, center = true);
+    translate([41,-20,271]) cylinder(h = 20, r = 1.7, $fn = 64, center = true);
+}
 
 
 module loecher_cables_control(middle=true) {
@@ -565,14 +589,14 @@ module servos() {
     translate([0,-10,228]) #servo(53);
 }
 
-bottom();
+//bottom();
 //battery();
 //rotate([180,0,0]) 
-cables();
+//cables();
 //rotate([180,0,0]) 
-control();
-//servos();
-legs();
+//control();
+servos();
+//legs();
 
 /*
 difference() {
@@ -586,14 +610,16 @@ difference() {
 }
 */
 
-torso_side();
-mirror([0, 1, 0]) torso_side(); 
-torso_front();
-torso_back();
+//torso_side();
+//mirror([0, 1, 0]) torso_side(); 
+//torso_front();
+//torso_back();
+//rotate([0,270,0]) 
 skeleton_front();
 skeleton_back();
-servo_plate();
-shoulders();
+shoulders_querbalken();
+//servo_plate();
+shoulder_front();
 //servo shield
 //#translate([-24,0,230]) cube([26,61,5], center=true);
 
@@ -601,6 +627,13 @@ shoulders();
 //neck();
 //head();
  
+module shoulders_querbalken() {
+ difference() {
+    union() {
+        translate([10, 20, 274]) cube([76, 10, 3], center = true);
+        translate([10, -20, 274]) cube([76, 10, 3], center = true);
+    }
+    loecher_skeleton(); 
+ }
 
-
-
+}
