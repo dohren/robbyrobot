@@ -448,6 +448,7 @@ module torso_back() {
     difference() {
         translate([49,0,207.5])  cube([2,104,105], center = true);
         loecher_torso();
+        loecher_servo_shield();
     }
     
 }
@@ -632,22 +633,23 @@ difference() {
 //rotate([90,0,0])  torso_side();
 //rotate([270,0,0]) mirror([0, 1, 0]) torso_side(); 
 //torso_front();
+rotate([0,-90,0]) 
 torso_back();
-loecher_servo_shield();
+
 //rotate([0,270,0]) 
 //skeleton_front();
-skeleton_back();
+//skeleton_back();
 //shoulders_querbalken();
 //servo_plate();
-rotate([0,-90,0]) 
-shoulder_front();
+//rotate([0,-90,0]) 
+//shoulder_front();
 //rotate([0,90,0]) 
 //shoulder_back();
 //servo shield
 
 module loecher_servo_shield() {
-     translate([45,9,186]) {
-        #cube([5,62,26], center=true);
+     translate([45,-8,195]) {
+        //cube([5,62,26], center=true);
         translate([0,28,9.5]) rotate([0,90,0]) cylinder(h = 20, r = 1.5, $fn = 64, center = true);
         translate([0,-28,9.5]) rotate([0,90,0]) cylinder(h = 20, r = 1.5, $fn = 64, center = true);
         translate([0,-28,-9.5]) rotate([0,90,0]) cylinder(h = 20, r = 1.5, $fn = 64, center = true);
