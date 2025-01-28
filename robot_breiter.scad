@@ -609,14 +609,14 @@ module servos() {
     translate([0,-10,228]) #servo(53);
 }
 
-//bottom();
-//battery();
+bottom();
+battery();
 //rotate([180,0,0]) 
-//cables();
+cables();
 //rotate([180,0,0]) 
-//control();
-//servos();
-//legs();
+control();
+servos();
+legs();
 
 /*
 difference() {
@@ -630,21 +630,23 @@ difference() {
 }
 */
 
-//rotate([90,0,0])  torso_side();
-//rotate([270,0,0]) mirror([0, 1, 0]) torso_side(); 
-//torso_front();
-rotate([0,-90,0]) 
+//rotate([90,0,0])  #
+torso_side();
+//rotate([270,0,0]) 
+mirror([0, 1, 0]) torso_side(); 
+torso_front();
+//rotate([0,-90,0]) 
 torso_back();
 
 //rotate([0,270,0]) 
-//skeleton_front();
-//skeleton_back();
-//shoulders_querbalken();
-//servo_plate();
+skeleton_front();
+skeleton_back();
+shoulders_querbalken();
+servo_plate();
 //rotate([0,-90,0]) 
-//shoulder_front();
+shoulder_front();
 //rotate([0,90,0]) 
-//shoulder_back();
+shoulder_back();
 //servo shield
 
 module loecher_servo_shield() {
