@@ -334,11 +334,30 @@ module shoulder_front() {
     difference() {
         shoulders();
         translate([60, 0, 270]) cube([100, 120, 50], center = true);
-
     }
+}
+
+module shoulder_back() {
+    
+    difference() {
+        shoulders();
+        translate([-40, 0, 270]) cube([100, 120, 50], center = true);
+    }
+}
+
+
+module shoulders_querbalken() {
+ difference() {
+    union() {
+        translate([10, 22, 274]) cube([76, 15, 3], center = true);
+        translate([10, -22, 274]) cube([76, 15, 3], center = true);
+    }
+    translate([10, 0, 272]) cylinder(h = 7, r = 23.5, $fn = 64);
+    loecher_skeleton(); 
+ }
 
 }
-       
+
 module shoulders(thickness=0) {       
         difference() {
            translate([10, 0, 262]) {
@@ -567,8 +586,8 @@ module loecher_skeleton() {
     translate([-21,20,271]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
     translate([-21,-20,271]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
 
-    translate([41,20,271]) cylinder(h = 20, r = 1.7, $fn = 64, center = true);
-    translate([41,-20,271]) cylinder(h = 20, r = 1.7, $fn = 64, center = true);
+    translate([41,20,271]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
+    translate([41,-20,271]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
 }
 
 
@@ -595,7 +614,7 @@ module servos() {
 //cables();
 //rotate([180,0,0]) 
 //control();
-servos();
+//servos();
 //legs();
 
 /*
@@ -610,30 +629,32 @@ difference() {
 }
 */
 
-//torso_side();
-//mirror([0, 1, 0]) torso_side(); 
+//rotate([90,0,0])  torso_side();
+//rotate([270,0,0]) mirror([0, 1, 0]) torso_side(); 
 //torso_front();
-//torso_back();
+torso_back();
+loecher_servo_shield();
 //rotate([0,270,0]) 
-skeleton_front();
+//skeleton_front();
 skeleton_back();
-shoulders_querbalken();
+//shoulders_querbalken();
 //servo_plate();
+rotate([0,-90,0]) 
 shoulder_front();
+//rotate([0,90,0]) 
+//shoulder_back();
 //servo shield
-//#translate([-24,0,230]) cube([26,61,5], center=true);
 
+module loecher_servo_shield() {
+     translate([45,9,186]) {
+        #cube([5,62,26], center=true);
+        translate([0,28,9.5]) rotate([0,90,0]) cylinder(h = 20, r = 1.5, $fn = 64, center = true);
+        translate([0,-28,9.5]) rotate([0,90,0]) cylinder(h = 20, r = 1.5, $fn = 64, center = true);
+        translate([0,-28,-9.5]) rotate([0,90,0]) cylinder(h = 20, r = 1.5, $fn = 64, center = true);
+        translate([0,28,-9.5]) rotate([0,90,0]) cylinder(h = 20, r = 1.5, $fn = 64, center = true);
+     }
+}
 
 //neck();
 //head();
  
-module shoulders_querbalken() {
- difference() {
-    union() {
-        translate([10, 20, 274]) cube([76, 10, 3], center = true);
-        translate([10, -20, 274]) cube([76, 10, 3], center = true);
-    }
-    loecher_skeleton(); 
- }
-
-}
