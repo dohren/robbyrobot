@@ -609,13 +609,13 @@ module servos() {
     translate([0,-10,228]) #servo(53);
 }
 
-bottom();
-battery();
+//bottom();
+//battery();
 //rotate([180,0,0]) 
-cables();
+//cables();
 //rotate([180,0,0]) 
-control();
-servos();
+//control();
+//servos();
 legs();
 
 /*
@@ -634,20 +634,23 @@ difference() {
 torso_side();
 //rotate([270,0,0]) 
 mirror([0, 1, 0]) torso_side(); 
-torso_front();
+//torso_front();
 //rotate([0,-90,0]) 
-torso_back();
+//torso_back();
 
 //rotate([0,270,0]) 
-skeleton_front();
-skeleton_back();
-shoulders_querbalken();
-servo_plate();
+//skeleton_front();
+//skeleton_back();
+//shoulders_querbalken();
+//servo_plate();
 //rotate([0,-90,0]) 
-shoulder_front();
+//shoulder_front();
 //rotate([0,90,0]) 
-shoulder_back();
+//shoulder_back();
 //servo shield
+//neck();
+//head();
+
 
 module loecher_servo_shield() {
      translate([45,-8,195]) {
@@ -659,6 +662,81 @@ module loecher_servo_shield() {
      }
 }
 
-//neck();
-//head();
- 
+
+module loecher_shoulder_link() {
+        translate([0,8,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
+        translate([0,-8,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
+        translate([8,0,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
+        translate([-8,0,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
+
+        translate([0,17,11])  rotate([90,0,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
+        translate([0,-17,11])  rotate([90,0,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
+
+        translate([17,0,11])  rotate([0,90,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
+        translate([-17,0,11])  rotate([0,90,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
+
+}
+
+module shoulder_link() {
+    
+    translate([10,-55,238]) rotate([90,0,0]) {
+        difference() {
+            translate([0,0,0]) cylinder(h = 1.5, r = 11.5, $fn = 64);
+            translate([0,0,-1]) cylinder(h = 10, r = 4.5, $fn = 64);
+        }
+
+        difference() {
+            
+            cylinder(h = 15, r = 17.6, $fn = 64);
+            translate([0,0,1.5]) cylinder(h = 25, r = 16.5, $fn = 64);
+            difference() {
+                translate([0,0,-1]) cylinder(h = 10, r = 16.5, $fn = 64);
+                translate([-20,0,-9]) cube([40,50,22]);
+            }
+            translate([0,0,-1]) cylinder(h = 10, r = 4.5, $fn = 64);
+            
+            loecher_shoulder_link();
+        }
+
+    }
+}
+
+module upper_arm_link() {
+
+    difference() {
+        union(){
+            translate([10,-64,238]) rotate([90,0,0]) cylinder(h = 18, r = 18.5, $fn = 64, center=true);
+            translate([10,-72,217]) cube([40,2,90], center=true);
+            translate([10,-99,217]) cube([40,2,90], center=true);
+        }
+        translate([10,-70,238]) rotate([90,0,0]) cylinder(h = 30, r = 17.6, $fn = 64, center=true);
+        translate([10,-55,238]) rotate([90,0,0]) loecher_shoulder_link();
+    }
+
+}
+
+module servo_elbow(){
+    cube([22.5,11.5,24]);
+    translate([5.5,5.75,0]) cylinder(h = 28.5, r = 5.5, $fn = 64);
+    translate([5.5,5.75,0]) cylinder(h = 31, r = 2.5, $fn = 64);
+    
+    
+    // Kugellager
+     /*
+     translate([10,10,kugellager]) difference() {
+         cylinder(h = 7, r = 23.5, $fn = 64);
+         translate([0,0,-1]) cylinder(h = 9, r = 17.5, $fn = 64);
+     }*/
+         
+    // Schraubenlöcher     
+    difference() { 
+        translate([-5,0,17.5]) cube([32.5,11.5,3.5]);
+        translate([-5,13,27]) cylinder(h = 5.6, r = 2.25, $fn = 64);
+        translate([46,5.5,27]) cylinder(h = 6, r = 2.25, $fn = 64);
+    }    
+}   
+
+
+shoulder_link();
+#upper_arm_link();
+#translate([5.5,-98,180]) rotate([-90,-90,0]) servo_elbow();
