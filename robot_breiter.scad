@@ -630,7 +630,7 @@ difference() {
 }
 */
 
-//rotate([90,0,0])  #
+//rotate([90,0,0])  
 torso_side();
 //rotate([270,0,0]) 
 mirror([0, 1, 0]) torso_side(); 
@@ -644,11 +644,11 @@ mirror([0, 1, 0]) torso_side();
 //shoulders_querbalken();
 //servo_plate();
 //rotate([0,-90,0]) 
-//shoulder_front();
+shoulder_front();
 //rotate([0,90,0]) 
-//shoulder_back();
+shoulder_back();
 //servo shield
-//neck();
+neck();
 //head();
 
 
@@ -706,11 +706,17 @@ module upper_arm_link() {
     difference() {
         union(){
             translate([10,-64,238]) rotate([90,0,0]) cylinder(h = 18, r = 18.5, $fn = 64, center=true);
-            translate([10,-72,217]) cube([40,2,90], center=true);
-            translate([10,-99,217]) cube([40,2,90], center=true);
+            translate([10,-72,209]) cube([30,2,50], center=true);
+            translate([10,-72,185]) rotate([90,0,0]) cylinder(h = 2, r = 15, $fn = 64, center=true);
+
+            translate([10,-84,238]) rotate([90,0,0]) cylinder(h = 23, r = 18.5, $fn = 64, center=true);
+            translate([10,-84,209]) cube([30,23,50], center=true);
+            translate([10,-84,185]) rotate([90,0,0]) cylinder(h = 23, r = 15, $fn = 64, center=true);
         }
-        translate([10,-70,238]) rotate([90,0,0]) cylinder(h = 30, r = 17.6, $fn = 64, center=true);
+        translate([10,-56,238]) rotate([90,0,0]) cylinder(h = 30, r = 17.6, $fn = 64, center=true);
+         translate([10,-70,238]) rotate([90,0,0]) cylinder(h = 20, r = 10, $fn = 64, center=true);
         translate([10,-55,238]) rotate([90,0,0]) loecher_shoulder_link();
+        #translate([5.5,-94,180]) rotate([-90,-90,0]) servo_elbow();
     }
 
 }
@@ -738,5 +744,33 @@ module servo_elbow(){
 
 
 shoulder_link();
-#upper_arm_link();
-#translate([5.5,-98,180]) rotate([-90,-90,0]) servo_elbow();
+upper_arm_link();
+
+
+
+/*
+$fn = 100; // Glättung der Rundungen
+
+// Variablen für das Rohr
+tube_diameter = 30;  // Außendurchmesser
+wall_thickness = 2;  // Wandstärke
+bend_radius = 20;  // Biegeradius (Mitte der Wand)
+bend_angle = 90;  // Biegewinkel
+
+// Aufruf des Moduls mit den Variablen
+bend_tube(tube_diameter, wall_thickness, bend_radius, bend_angle);
+
+module bend_tube(diameter, thickness, radius, angle) {
+    difference() {
+        // Äußere Rundung
+        rotate_extrude(angle=angle)
+            translate([radius, 0, 0])
+                circle(diameter / 2);
+
+        // Innere Rundung (Loch)
+        rotate_extrude(angle=angle)
+            translate([radius, 0, 0])
+                circle((diameter - 2 * thickness) / 2);
+    }
+}
+*/
