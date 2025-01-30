@@ -609,14 +609,7 @@ module servos() {
     translate([0,-10,228]) #servo(53);
 }
 
-//bottom();
-//battery();
-//rotate([180,0,0]) 
-//cables();
-//rotate([180,0,0]) 
-//control();
-//servos();
-legs();
+
 
 /*
 difference() {
@@ -630,26 +623,37 @@ difference() {
 }
 */
 
-//rotate([90,0,0])  
-torso_side();
-//rotate([270,0,0]) 
-mirror([0, 1, 0]) torso_side(); 
-//torso_front();
-//rotate([0,-90,0]) 
-//torso_back();
 
-//rotate([0,270,0]) 
-//skeleton_front();
-//skeleton_back();
-//shoulders_querbalken();
-//servo_plate();
-//rotate([0,-90,0]) 
-shoulder_front();
-//rotate([0,90,0]) 
-shoulder_back();
-//servo shield
-neck();
-//head();
+
+module show_robot() {
+    //rotate([90,0,0])  
+    torso_side();
+    //rotate([270,0,0]) 
+    mirror([0, 1, 0]) torso_side(); 
+    torso_front();
+    //rotate([0,-90,0]) 
+    torso_back();
+    //bottom();
+    //battery();
+    //rotate([180,0,0]) 
+    //cables();
+    //rotate([180,0,0]) 
+    //control();
+    //servos();
+    legs();
+    //rotate([0,270,0]) 
+    //skeleton_front();
+    //skeleton_back();
+    //shoulders_querbalken();
+    //servo_plate();
+    //rotate([0,-90,0]) 
+    shoulder_front();
+    //rotate([0,90,0]) 
+    shoulder_back();
+    //servo shield
+    //neck();
+    //head();
+}
 
 
 module loecher_servo_shield() {
@@ -668,10 +672,6 @@ module loecher_shoulder_link() {
         translate([0,-8,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
         translate([8,0,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
         translate([-8,0,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
-
-        translate([0,17,11])  rotate([90,0,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
-        translate([0,-17,11])  rotate([90,0,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
-
         translate([17,0,11])  rotate([0,90,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
         translate([-17,0,11])  rotate([0,90,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
 
@@ -683,12 +683,13 @@ module shoulder_link() {
         difference() {
             translate([0,0,0]) cylinder(h = 1.5, r = 11.5, $fn = 64);
             translate([0,0,-1]) cylinder(h = 10, r = 4.5, $fn = 64);
+            loecher_shoulder_link();
         }
 
         difference() {
             
             cylinder(h = 15, r = 17.6, $fn = 64);
-            translate([0,0,1.5]) cylinder(h = 25, r = 16.5, $fn = 64);
+            translate([0,0,2]) cylinder(h = 25, r = 16.5, $fn = 64);
             difference() {
                 translate([0,0,-1]) cylinder(h = 10, r = 16.5, $fn = 64);
                 translate([-20,0,-9]) cube([40,50,22]);
@@ -701,28 +702,69 @@ module shoulder_link() {
     }
 }
 
-module upper_arm_link() {
+module upper_arm() {
 
     difference() {
         union(){
-            translate([10,-64,238]) rotate([90,0,0]) cylinder(h = 18, r = 18.5, $fn = 64, center=true);
-            translate([10,-72,209]) cube([30,2,50], center=true);
-            translate([10,-72,185]) rotate([90,0,0]) cylinder(h = 2, r = 15, $fn = 64, center=true);
-
-            translate([10,-84,238]) rotate([90,0,0]) cylinder(h = 23, r = 18.5, $fn = 64, center=true);
-            translate([10,-84,209]) cube([30,23,50], center=true);
-            translate([10,-84,185]) rotate([90,0,0]) cylinder(h = 23, r = 15, $fn = 64, center=true);
+            translate([10,-75.5,238]) rotate([90,0,0]) cylinder(h = 40, r = 18.5, $fn = 64, center=true);
         }
-        translate([10,-56,238]) rotate([90,0,0]) cylinder(h = 30, r = 17.6, $fn = 64, center=true);
-         translate([10,-70,238]) rotate([90,0,0]) cylinder(h = 20, r = 10, $fn = 64, center=true);
+        translate([10,-73.5,238]) rotate([90,0,0]) cylinder(h = 40, r = 17.6, $fn = 64, center=true);
         translate([10,-55,238]) rotate([90,0,0]) loecher_shoulder_link();
-        #translate([5.5,-94,180]) rotate([-90,-90,0]) servo_elbow();
+        translate([10,-84,220]) cube([4,10,10], center=true);
+ 
+    }
+
+    difference() {
+        translate([10,-85,191]) cube([15,20,31], center=true);
+        translate([4.25,-94,179.5]) rotate([-90,-90,0]) servo_mini();
+        translate([10,-80,177.5]) rotate([90,0,0]) cylinder(h = 10, r = 1.8, $fn = 64, center=true);
+        translate([10,-80,204.5]) rotate([90,0,0]) cylinder(h = 10, r = 1.8, $fn = 64, center=true);
+        translate([10,-87,179]) cube([4,8,10], center=true);
+        translate([10,-84,185]) rotate([90,0,0]) cylinder(h = 50, r = 3.55, $fn = 64, center=true);
+    }
+
+
+    difference() {
+        union() {
+          translate([10,-84,209]) cube([25,23,50], center=true);
+          translate([10,-84,185]) rotate([90,0,0]) cylinder(h = 23, r = 15, $fn = 64, center=true);
+
+        }
+        translate([10,-84,185]) rotate([90,0,0]) cylinder(h = 50, r = 3.55, $fn = 64, center=true);
+        translate([10,-82,209]) cube([21,23,50], center=true);
+        translate([10,-73.5,238]) rotate([90,0,0]) cylinder(h = 40, r = 17.6, $fn = 64, center=true);
+        translate([10,-82,185]) rotate([90,0,0]) cylinder(h = 23, r = 13, $fn = 64, center=true);
+        translate([5,-79,173]) cube([20,15,10], center=true);
+        translate([10,-86,170]) cube([4,8,10], center=true);
     }
 
 }
 
-module servo_elbow(){
-    cube([22.5,11.5,24]);
+module lower_arm() {
+    translate([10,-82,160]) cube([3,32,3], center=true);
+    translate([10,-90,160]) cube([5,10,5], center=true);
+
+    translate([20,-91,125]) rotate([0,-90,0]) #servo_mini();
+    difference() {
+        union() {
+            translate([10,-82,185]) rotate([90,0,0]) cylinder(h = 32, r = 15, $fn = 64, center=true);
+            translate([10,-84,150]) cube([25,19,50], center=true);
+            translate([10,-82,158]) rotate([90,0,0]) cylinder(h = 32, r = 5, $fn = 64, center=true);
+            translate([10,-82,165]) cube([10,32,15], center=true);
+            translate([10,-83,185]) rotate([90,0,0]) cylinder(h = 21, r = 17.5, $fn = 64, center=true);
+        }
+        translate([10,-82,185]) rotate([90,0,0]) cylinder(h = 28, r = 16.5, $fn = 64, center=true);
+        // #translate([10,-82,150]) cube([10,23,20], center=true);
+        translate([10,-82,148]) cube([22,20,50], center=true);
+        translate([10,-83,191]) cube([40,24,30], center=true);
+        
+
+    }
+        
+}
+
+module servo_mini(){
+    cube([23,12,24.5]);
     translate([5.5,5.75,0]) cylinder(h = 28.5, r = 5.5, $fn = 64);
     translate([5.5,5.75,0]) cylinder(h = 31, r = 2.5, $fn = 64);
     
@@ -743,34 +785,57 @@ module servo_elbow(){
 }   
 
 
+rotate([-90,0,0]) 
 shoulder_link();
-upper_arm_link();
-
-
-
+//upper_arm();
+//lower_arm();
+//show_robot();
+// jaw();
 /*
-$fn = 100; // Glättung der Rundungen
-
-// Variablen für das Rohr
-tube_diameter = 30;  // Außendurchmesser
-wall_thickness = 2;  // Wandstärke
-bend_radius = 20;  // Biegeradius (Mitte der Wand)
-bend_angle = 90;  // Biegewinkel
-
-// Aufruf des Moduls mit den Variablen
-bend_tube(tube_diameter, wall_thickness, bend_radius, bend_angle);
-
-module bend_tube(diameter, thickness, radius, angle) {
-    difference() {
-        // Äußere Rundung
-        rotate_extrude(angle=angle)
-            translate([radius, 0, 0])
-                circle(diameter / 2);
-
-        // Innere Rundung (Loch)
-        rotate_extrude(angle=angle)
-            translate([radius, 0, 0])
-                circle((diameter - 2 * thickness) / 2);
-    }
+difference() {
+    cube([10,20,5]);
+    #translate([5,5,1]) cylinder(h = 12, r = 3.6, $fn = 64, center=true);
+    #translate([5,15,1]) cylinder(h = 12, r = 1.8, $fn = 64, center=true);
 }
 */
+//3.55 passt
+//1.8 passt
+
+//3.6 zu gross
+//1,75 zu klein
+module jaw_side() {
+    for(i=[0:1:20]){  // 30 Zähne für gleichmäßige Verteilung
+        rotate([0,0,(360/20)*i])
+        translate([4,0])  // 7.5 mm für Radius (Durchmesser 15 mm)
+            linear_extrude(3)
+                circle(2,$fn=3); // Kleinere Dreiecke für schärfere Zähne
+    }
+
+    difference() {
+      cylinder(h=3,r=4);
+      translate([0,0,-1]) cylinder(h=5,r=2,$fn=25);
+    }
+    translate([4,-2,0]) cube([10,4,3]);
+
+    difference() {
+        union() {
+            translate([28,8,0]) cylinder(h=3,r=20);
+            
+        }
+        translate([28,10,-1]) cylinder(h=5,r=17);
+        translate([8,10,-1]) cube([40,20,5]);
+        translate([8,0,-1]) cube([15,15,5]);
+    }
+}
+module jaw() {
+    translate ([-10,-84,125]) rotate([0,90,0]) jaw_side();
+    translate([-10,-76,125]) rotate([0,90,0])mirror([0,1,0]) rotate([0,0,-30]) jaw_side();
+}
+
+
+
+
+
+
+
+
