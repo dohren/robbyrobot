@@ -711,10 +711,10 @@ module upper_arm() {
 
     difference() {
         union(){
-            translate([10,-78.5,238]) rotate([90,0,0]) cylinder(h = 34, r = 18.5, $fn = 64, center=true);
+            #translate([10,-75.5,238]) rotate([90,0,0]) cylinder(h = 40, r = 18.5, $fn = 64, center=true);
         }
         translate([10,-73.5,238]) rotate([90,0,0]) cylinder(h = 50, r = 17.6, $fn = 64, center=true);
-        translate([11,-55,238]) rotate([90,0,0]) loecher_shoulder_link();
+        #translate([11,-51,238]) rotate([90,0,0]) loecher_shoulder_link();
         translate([10,-84,220]) cube([4,10,10], center=true);
  
     }
@@ -907,6 +907,7 @@ module arm() {
 }
 
 arm();
-mirror([0,1,0]) arm();
-show_robot();
+mirror([0,1,0]) lower_arm();
+
+//show_robot();
 
