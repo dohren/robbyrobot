@@ -724,7 +724,7 @@ module upper_arm() {
             translate([12,-85.5,205]) cube([17,18,5], center=true);
             translate([12,-85.5,176]) cube([15,18,5], center=true);
         }
-        translate([4.25,-94,179.5]) rotate([-90,-90,0]) servo_mini();
+        #translate([4.25,-94,179.5]) rotate([-90,-90,0]) servo_mini();
         translate([10,-76,176.5]) rotate([90,0,0]) cylinder(h = 10, r = 1.8, $fn = 64, center=true);
         translate([10,-76,204.5]) rotate([90,0,0]) cylinder(h = 10, r = 1.8, $fn = 64, center=true);
         translate([10,-87,175]) cube([4,8,10], center=true);
@@ -749,34 +749,33 @@ module upper_arm() {
 
 }
 
-module elbow_cover(side="right") {
+module elbow_cover(side) {
    
         if (side != "left") {
             translate([10,-95,185]) rotate([90,0,0]) cylinder(h = 5, r = 1.5, $fn = 64, center=true);
             difference() {
-                translate([10,-79,160]) cube([6,32,6], center=true);
-                translate([10,-68,160]) rotate([90,0,90]) cylinder(h = 20, r = 1.5, $fn = 64, center=true);
+                translate([10,-81,160]) cube([6,32,6], center=true);
+                translate([10,-67,160]) rotate([90,0,90]) cylinder(h = 20, r = 1.6, $fn = 64, center=true);
             }
         }
 
        
        difference() {
         union() {
-            translate([10,-79,185]) rotate([90,0,0]) cylinder(h = 38, r = 15, $fn = 64, center=true);
-            translate([10,-79,158]) rotate([90,0,0]) cylinder(h = 38, r = 5, $fn = 64, center=true);
-            translate([10,-79,165]) cube([10,38,15], center=true);
-
-
+            translate([10,-80,185]) rotate([90,0,0]) cylinder(h = 36, r = 15, $fn = 64, center=true);
+            translate([10,-80,158]) rotate([90,0,0]) cylinder(h = 36, r = 5, $fn = 64, center=true);
+            translate([10,-80,165]) cube([10,36,15], center=true);
         }
-        translate([10,-82,185]) rotate([90,0,0]) cylinder(h = 28, r = 16.5, $fn = 64, center=true);
-        translate([10,-83,148]) cube([22,22,50], center=true);
-        translate([10,-66,185]) rotate([90,0,0]) cylinder(h = 8, r = 12, $fn = 64, center=true);
+        translate([10,-82.5,185]) rotate([90,0,0]) cylinder(h = 27, r = 16.5, $fn = 64, center=true);
+        translate([10,-83,148]) cube([22,24,50], center=true);
+        translate([10,-68,185]) rotate([90,0,0]) cylinder(h = 8, r = 12, $fn = 64, center=true);
         //#translate([10,-65,185]) rotate([90,180,0]) servo_mini_horn();
-        translate([10,-62,185]) rotate([90,180,0]) cylinder(h = 5, r = 3.5, $fn = 64, center=true);
-        translate([10,-61,169]) rotate([90,180,0]) cylinder(h = 4, r = 2.5, $fn = 64, center=true);
-        translate([10,-68,160]) rotate([90,0,90]) cylinder(h = 20, r = 1.5, $fn = 64, center=true);
 
-        translate([10,-59,170]) rotate([90,0,0]) linear_extrude(height = 4)
+        translate([10,-67,160]) rotate([90,0,90]) cylinder(h = 20, r = 1.6, $fn = 64, center=true);
+
+        translate([10,-64,185]) rotate([90,180,0]) cylinder(h = 5, r = 3.5, $fn = 64, center=true);
+        translate([10,-63,169]) rotate([90,180,0]) cylinder(h = 4, r = 2.5, $fn = 64, center=true);
+        translate([10,-61,170]) rotate([90,0,0]) linear_extrude(height = 4)
         polygon(points = [
             [-3.5, 15], // obere linke Ecke (halbe Breite von 7mm)
             [3.5, 15],  // obere rechte Ecke
@@ -787,7 +786,7 @@ module elbow_cover(side="right") {
 
         if (side == "left") {
             translate([10,-97,178]) cube([30,15,50], center=true);
-            translate([10,-79,160]) cube([6,34,6], center=true);
+            translate([10,-79,160]) cube([6,32,6], center=true);
         }
         else {
             translate([10,-66,178]) cube([30,15,50], center=true);
@@ -798,22 +797,44 @@ module elbow_cover(side="right") {
 
 module lower_arm() {
    
-    translate([20,-91,125]) rotate([0,-90,0]) servo_mini();
+    //#translate([20,-91,125]) rotate([0,-90,0]) servo_mini();
     difference() {
-        union() {           
-            translate([10,-84,150]) cube([25,19,50], center=true);
-            translate([10,-84,185]) rotate([90,0,0]) cylinder(h = 19, r = 17.5, $fn = 64, center=true);
-        }
-        translate([10,-82,185]) rotate([90,0,0]) cylinder(h = 28, r = 16.5, $fn = 64, center=true);
-       
         
-        translate([10,-82,148]) cube([22,20,50], center=true);
-        translate([10,-83,191]) cube([40,24,30], center=true);
-        #elbow_cover();
 
-    }
+        union() {      
+            translate([10,-84,150]) cube([28,22,50], center=true);
+            translate([10,-84,185]) rotate([90,0,0]) cylinder(h = 22, r = 17.5, $fn = 64, center=true);
+        }
         
+        translate([10,-84.5,130]) rotate([0,90,0]) cylinder(h = 40, r = 2.2, $fn = 64, center = true);
+        translate([13,-84.5,143]) rotate([90,0,0]) cylinder(h = 40, r = 2.2, $fn = 64, center = true);
+        translate([10,-82,185]) rotate([90,0,0]) cylinder(h = 28, r = 16.5, $fn = 64, center=true);
+        translate([10,-82,148]) cube([24,20,50], center=true);
+        translate([10,-84,191]) cube([40,24,30], center=true);
+        elbow_cover();
+
+    }      
+    difference() {
+        translate([10,-88,160]) cube([9,10,9], center=true); 
+        elbow_cover();
+ 
+    }
 }
+
+module lower_arm_cover() {
+    difference() {
+        translate([10,-74,150]) cube([28,6,50], center=true);
+        translate([10,-84.5,138]) cube([24,15,26], center=true);       
+        translate([10,-82,185]) rotate([90,0,0]) cylinder(h = 28, r = 16.5, $fn = 64, center=true);
+        translate([13,-84.5,143]) rotate([90,0,0]) cylinder(h = 40, r = 1.7, $fn = 64, center = true);
+        translate([10,-77,152]) cube([19,5,50], center=true);
+        elbow_cover();
+        lower_arm();
+    }
+
+
+}
+   
 
 module servo_mini(){
     cube([23,12,24.5]);
@@ -848,10 +869,10 @@ module cover_upper_arm() {
   difference() {
     union() {
         translate([10,-74,209]) cube([25,7,32], center=true);
-        #translate([10,-74,185]) rotate([90,0,0]) cylinder(h = 7, r = 15, $fn = 64, center=true);
+        translate([10,-74,185]) rotate([90,0,0]) cylinder(h = 7, r = 15, $fn = 64, center=true);
     }
-    translate([10,-76,207]) cube([17,7,40], center=true);
-    translate([10,-76,185]) rotate([90,0,0]) cylinder(h = 7, r = 11, $fn = 64, center=true);
+    translate([10,-76,207]) cube([19,7,40], center=true);
+    translate([10,-76,185]) rotate([90,0,0]) cylinder(h = 7, r = 12, $fn = 64, center=true);
     translate([4.25,-94,179.5]) rotate([-90,-90,0]) servo_mini();
     translate([10,-75.5,238]) rotate([90,0,0]) cylinder(h = 40, r = 18.5, $fn = 64, center=true);
     upper_arm();
@@ -859,61 +880,33 @@ module cover_upper_arm() {
   }
 }
 
-//translate([10,-65.25,185]) rotate([-90,0,0]) servo_standard(20, 0);
-
-//rotate([-90,0,0]) 
-//shoulder_link();
-//rotate([90,0,0]) 
-//upper_arm();
-//cover_shoulder_link();
-//cover_upper_arm();
-//lower_arm();
-rotate([90,0,0]) 
-elbow_cover();
-//show_robot();
-//jaw();
-/*
-difference() {
-    cube([10,20,5]);
-    #translate([5,5,1]) cylinder(h = 12, r = 3.6, $fn = 64, center=true);
-    #translate([5,15,1]) cylinder(h = 12, r = 1.8, $fn = 64, center=true);
-}
-*/
-//3.55 passt
-//1.8 passt
-
-
-//servo_standard(20, 0);
-//3.6 zu gross
-//1,75 zu klein
-module jaw_side() {
-    
-    difference() {
-        for(i=[0:1:20]){  // 30 Zähne für gleichmäßige Verteilung
-            rotate([0,0,(360/20)*i])
-            translate([4,0])  // 7.5 mm für Radius (Durchmesser 15 mm)
-                linear_extrude(3)
-                    circle(2,$fn=3); // Kleinere Dreiecke für schärfere Zähne
-        }
-        
-        translate([0,0,-1]) cylinder(h=5,r=3.55,$fn=25);
-    }
-
- 
-    translate([4,-2,0]) cube([10,4,3]);
-
+module hand() {
     difference() {
         union() {
-            translate([28,8,0]) cylinder(h=3,r=20);
-            
+            translate([10,-82,100]) rotate([90,0,90]) cylinder(h = 24, r = 20, $fn = 64, center=true);
+            translate([10,-84.5,123]) cube([24,15,26], center=true);   
         }
-        
-        translate([28,10,-1]) cylinder(h=5,r=17);
-        translate([8,10,-1]) cube([40,20,5]);
-        translate([8,0,-1]) cube([15,15,5]);
+        translate([10,-84.5,130]) rotate([0,90,0]) cylinder(h = 40, r = 2.2, $fn = 64, center = true);
+        translate([10,-82,100]) rotate([90,0,90]) cylinder(h = 25, r = 16, $fn = 64, center=true);
+        translate([10,-82,83]) cube([25,20,10], center=true);   
     }
+
 }
-module jaw() {
-    translate ([-10,-87,125]) rotate([0,90,0]) jaw_side();
-    translate([-10,-76,125]) rotate([0,90,0]) mirror([0,1,0]) jaw_side();
+
+
+module arm() {
+ shoulder_link();
+ upper_arm();
+ cover_upper_arm();
+ cover_shoulder_link();
+ lower_arm();
+ lower_arm_cover();
+ elbow_cover(side="left");
+ elbow_cover(side="right");
+ hand();
 }
+
+arm();
+mirror([0,1,0]) arm();
+show_robot();
+
