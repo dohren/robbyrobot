@@ -248,16 +248,6 @@ module neck() {
   }
 }
 
-module head() {
-   translate([10, 0, 310]) difference() {
-       union() {
-           cube([80, 100, 60], center = true);
-           //translate([0, 25,0]) rotate([0,90,0]) cylinder(h = 74, r = 20, $fn = 64, center = true);
-           //translate([0, -25,0]) rotate([0,90,0]) cylinder(h = 74, r = 20, $fn = 64, center = true);
-       }
-   }
-}
-
 
 module motor() {
    cube([32, 24.5, 46]);
@@ -630,35 +620,7 @@ difference() {
 
 
 
-module show_robot() {
-    //rotate([90,0,0])  
-    torso_side();
-    //rotate([270,0,0]) 
-    mirror([0, 1, 0]) torso_side(); 
-    torso_front();
-    //rotate([0,-90,0]) 
-    torso_back();
-    //bottom();
-    //battery();
-    //rotate([180,0,0]) 
-    //cables();
-    //rotate([180,0,0]) 
-    //control();
-    //servos();
-    legs();
-    //rotate([0,270,0]) 
-    //skeleton_front();
-    //skeleton_back();
-    //shoulders_querbalken();
-    //servo_plate();
-    //rotate([0,-90,0]) 
-    shoulder_front();
-    //rotate([0,90,0]) 
-    shoulder_back();
-    //servo shield
-    //neck();
-    //head();
-}
+
 
 
 module loecher_servo_shield() {
@@ -711,10 +673,10 @@ module upper_arm() {
 
     difference() {
         union(){
-            #translate([10,-75.5,238]) rotate([90,0,0]) cylinder(h = 40, r = 18.5, $fn = 64, center=true);
+            translate([10,-75.5,238]) rotate([90,0,0]) cylinder(h = 40, r = 18.5, $fn = 64, center=true);
         }
         translate([10,-73.5,238]) rotate([90,0,0]) cylinder(h = 50, r = 17.6, $fn = 64, center=true);
-        #translate([11,-51,238]) rotate([90,0,0]) loecher_shoulder_link();
+        translate([11,-51,238]) rotate([90,0,0]) loecher_shoulder_link();
         translate([10,-84,220]) cube([4,10,10], center=true);
  
     }
@@ -893,7 +855,6 @@ module hand() {
 
 }
 
-
 module arm() {
  shoulder_link();
  upper_arm();
@@ -906,8 +867,50 @@ module arm() {
  hand();
 }
 
-arm();
-mirror([0,1,0]) lower_arm();
 
-//show_robot();
 
+module show_robot() {
+    //rotate([90,0,0])  
+    torso_side();
+    //rotate([270,0,0]) 
+    mirror([0, 1, 0]) torso_side(); 
+    torso_front();
+    //rotate([0,-90,0]) 
+    torso_back();
+    //bottom();
+    //battery();
+    //rotate([180,0,0]) 
+    //cables();
+    //rotate([180,0,0]) 
+    //control();
+    //servos();
+    legs();
+    //rotate([0,270,0]) 
+    //skeleton_front();
+    //skeleton_back();
+    //shoulders_querbalken();
+    //servo_plate();
+    //rotate([0,-90,0]) 
+    shoulder_front();
+    //rotate([0,90,0]) 
+    shoulder_back();
+    //servo shield
+    //neck();
+    head();
+    arm();
+    mirror([0,1,0]) arm();
+}
+
+
+module head() {
+   translate([10, 0, 330]) difference() {
+       union() {
+           cube([70, 70, 60], center = true);
+           //translate([0, 25,0]) rotate([0,90,0]) cylinder(h = 74, r = 20, $fn = 64, center = true);
+           //translate([0, -25,0]) rotate([0,90,0]) cylinder(h = 74, r = 20, $fn = 64, center = true);
+       }
+   }
+}
+
+
+show_robot();
