@@ -26,13 +26,13 @@ module rounded_rectangle_3d(w, h, r, length) {
 
 
 
-module servo_mini(){
+module servo_mini_2(){
     cube([23,12,25]);
     translate([5.5,5.75,0]) cylinder(h = 30, r = 5.5, $fn = 64);
     translate([5.5,5.75,0]) cylinder(h = 34.5, r = 2.5, $fn = 64);
     
     difference() { 
-        translate([-4.25,0,20]) cube([31.5,11.5,3]);
+        translate([-4.25,1,22]) cube([31.5,11.5,3]);
         translate([-2,6,19]) cylinder(h = 6, r = 2.25, $fn = 64);
         translate([25,6,19]) cylinder(h = 6, r = 2.25, $fn = 64);
     }    
@@ -105,13 +105,9 @@ module neck() {
 
         translate([0,0,-11]) cylinder(h = 12, r = 17.6, $fn = 64);
         translate([0,0,17.5]) rotate([90,0,0]) cylinder(h = 50, r = 3.55, $fn = 64, center=true);
-        #translate([-5.5,14.5,11.5]) rotate([90,0,0]) servo_mini();
+        #translate([-5.5,14.5,11.5]) rotate([90,0,0]) servo_mini_2();
         translate([0,-18.5,0]) horn();
         translate([0,0,-22]) loecher_neck_link();
-        #translate([0,0,-20]) difference() {
-            cylinder(h = 7, r = 23.5, $fn = 64);
-            translate([0,0,-1]) cylinder(h = 9, r = 17.5, $fn = 64);
-        }  
     }
 }
 
@@ -128,12 +124,16 @@ module head_buttom() {
         }
         translate([20,-6,17.5])  rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center=true);
         translate([-8,-6,17.5])  rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center=true);
-        translate([-5.5,14.5,11.5]) rotate([90,0,0]) servo_mini();
+        translate([-5.5,14.5,11.5]) rotate([90,0,0]) servo_mini_2();
     }
 
     
 }
+module head(){
+    head_buttom();
+    neck_link();
+    neck();
+}
 
-head_buttom();
-neck_link();
-neck();
+head();
+

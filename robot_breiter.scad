@@ -1,7 +1,6 @@
 
-include <zahnrad.scad>
-include <servoarm.scad>
-include <microservo_SG90.scad>
+include <head.scad>
+
 
 module legs(thickness=2) {
    difference() {
@@ -896,12 +895,12 @@ module show_robot() {
     shoulder_back();
     //servo shield
     //neck();
-    head();
+    //translate([10,0,299]) head();
     arm();
     mirror([0,1,0]) arm();
 }
 
-
+/*
 module head() {
    translate([10, 0, 330]) difference() {
        union() {
@@ -910,7 +909,7 @@ module head() {
            //translate([0, -25,0]) rotate([0,90,0]) cylinder(h = 74, r = 20, $fn = 64, center = true);
        }
    }
-}
+}*/
 
 
 show_robot();
