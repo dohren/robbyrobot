@@ -39,13 +39,13 @@ module servo_mini(){
 } 
 
 
-module loecher_shoulder_link() {
+module loecher_neck_link() {
         translate([0,8,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
         translate([0,-8,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
         translate([8,0,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
         translate([-8,0,-1])  cylinder(h = 5, r = 1.5, $fn = 64);
-        translate([17,0,11])  rotate([0,90,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
-        translate([-17,0,11])  rotate([0,90,0]) cylinder(h = 5, r = 1.7, $fn = 64, center=true);
+        translate([17,0,16])  rotate([0,90,0]) cylinder(h = 10, r = 1.7, $fn = 64, center=true);
+        translate([-17,0,16])  rotate([0,90,0]) cylinder(h = 10, r = 1.7, $fn = 64, center=true);
 
 }
 
@@ -62,21 +62,20 @@ module horn(){
 
 }
 
-shoulder_link();
-//neck();
-module shoulder_link() {
+
+module neck_link() {
     
     translate([0,0,-22])  {
         difference() {
             translate([0,0,0]) cylinder(h = 1.5, r = 11.5, $fn = 64);
             translate([0,0,-1]) cylinder(h = 10, r = 4.5, $fn = 64);
-            loecher_shoulder_link();
+            loecher_neck_link();
 
         }
 
         difference() {
             
-            cylinder(h = 30, r = 17.6, $fn = 64);
+            cylinder(h = 22, r = 17.6, $fn = 64);
             translate([0,0,2]) cylinder(h = 30, r = 16.5, $fn = 64);
             difference() {
                 translate([0,0,-1]) cylinder(h = 10, r = 16.5, $fn = 64);
@@ -84,7 +83,7 @@ module shoulder_link() {
             }
             translate([0,0,-1]) cylinder(h = 10, r = 4.5, $fn = 64);
             translate([0,0,22]) neck();
-            loecher_shoulder_link();
+            loecher_neck_link();
         }
 
     }
@@ -93,32 +92,48 @@ module shoulder_link() {
 module neck() {
 
     difference() {
-        translate([0,0,0]) cylinder(h = 10, r = 20, $fn = 64);
-        translate([0,0,-1]) cylinder(h = 30, r = 17.6, $fn = 64);
-    }
-
-    difference() {
         union() {
-            
+            translate([0,0,-10]) cylinder(h = 10, r = 20, $fn = 64);
             //translate([5,0,0]) cube([30,50,2], center=true);
-            translate([0,-16,17.5]) rotate([90,0,0]) cylinder(h = 4, r = 5.5, $fn = 64);   
-            translate([-5.5,-20,0]) cube([11,4,18]);
-            translate([0,19,17.5]) rotate([90,0,0]) cylinder(h = 3, r = 5.5, $fn = 64);  
-            translate([-5.5,16,0]) cube([11,3,18]);
+            translate([0,-17,17.5]) rotate([90,0,0]) cylinder(h = 4, r = 5.5, $fn = 64);   
+            translate([-5.5,-21,-10]) cube([11,4,28]);
+            translate([0,20,17.5]) rotate([90,0,0]) cylinder(h = 3, r = 5.5, $fn = 64);  
+            translate([-5.5,17,-10]) cube([11,3,28]);
             
             
         }
 
-        
+        translate([0,0,-11]) cylinder(h = 12, r = 17.6, $fn = 64);
         translate([0,0,17.5]) rotate([90,0,0]) cylinder(h = 50, r = 3.55, $fn = 64, center=true);
-        #translate([-5.5,15.5,11.5]) rotate([90,0,0]) servo_mini();
-        translate([0,-17.5,0]) horn();
+        #translate([-5.5,14.5,11.5]) rotate([90,0,0]) servo_mini();
+        translate([0,-18.5,0]) horn();
+        translate([0,0,-22]) loecher_neck_link();
         #translate([0,0,-20]) difference() {
             cylinder(h = 7, r = 23.5, $fn = 64);
             translate([0,0,-1]) cylinder(h = 9, r = 17.5, $fn = 64);
         }  
     }
 }
-/*
- translate([0,20,]) cube([20,4,23]);
-*/
+
+
+module head_buttom() {
+
+    difference() {
+        union() {
+            translate([0,0,24.5]) cube([50,50,2], center=true); 
+            translate([-5.5,20,17]) cube([11,3,8]);
+            translate([0,23,17.5]) rotate([90,0,0]) cylinder(h = 3, r = 5.5, $fn = 64);  
+            translate([0,23,17.5]) rotate([90,0,0]) cylinder(h = 6, r = 1.45, $fn = 64);  
+            translate([-11,-7,12]) cube([34,3,12]);
+        }
+        translate([20,-6,17.5])  rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center=true);
+        translate([-8,-6,17.5])  rotate([90,0,0]) cylinder(h = 10, r = 1.7, $fn = 64, center=true);
+        translate([-5.5,14.5,11.5]) rotate([90,0,0]) servo_mini();
+    }
+
+    
+}
+
+head_buttom();
+neck_link();
+neck();
