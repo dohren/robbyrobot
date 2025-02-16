@@ -54,7 +54,7 @@ module loecher_head() {
 
 module horn(){
         translate([0,-1,17.5]) rotate([90,0,0]) cylinder(h = 8, r = 3.5, $fn = 64, center=true);
-        translate([0,-1,4]) rotate([90,0,0]) cylinder(h = 3, r = 2, $fn = 64, center=true);
+        translate([0,-1,3.5]) rotate([90,0,0]) cylinder(h = 3, r = 2, $fn = 64, center=true);
         translate([0,0.5,4]) rotate([90,0,0]) linear_extrude(height = 3)
         polygon(points = [
             [-3, 14], // obere linke Ecke (halbe Breite von 7mm)
@@ -104,14 +104,14 @@ module neck() {
             //translate([5,0,0]) cube([30,50,2], center=true);
             translate([0,-17,17.5]) rotate([90,0,0]) cylinder(h = 4, r = 5.5, $fn = 64);   
             translate([-5.5,-21,-10]) cube([11,4,28]);
-            translate([0,20,17.5]) rotate([90,0,0]) cylinder(h = 3, r = 5.5, $fn = 64);  
-            translate([-5.5,17,-10]) cube([11,3,28]);
+            translate([0,21,17.5]) rotate([90,0,0]) cylinder(h = 4, r = 5.5, $fn = 64);  
+            translate([-5.5,17,-10]) cube([11,4,28]);
             
             
         }
 
         translate([0,0,-11]) cylinder(h = 22, r = 17.6, $fn = 64);
-        translate([0,0,17.5]) rotate([90,0,0]) cylinder(h = 50, r = 3.55, $fn = 64, center=true);
+        translate([0,20,17.5]) rotate([90,0,0]) cylinder(h = 5, r = 3.55, $fn = 64, center=true);
         #servo_mini_2();
         translate([0,-18.5,0]) horn();
         translate([0,0,-22]) loecher_head();
@@ -120,13 +120,14 @@ module neck() {
 
 
 module stift() {
-    #difference() {
+    difference() {
         union() {
-            translate([-5.5,20,18]) cube([11,3,22]);
-            translate([0,23,17.5]) rotate([90,0,0]) cylinder(h = 3, r = 5.5, $fn = 64);  
-            translate([-17.5,13,38]) cube([35,10,2]);
+            translate([-5.5,21,18]) cube([11,3,22]);
+            translate([0,24,17.5]) rotate([90,0,0]) cylinder(h = 3, r = 5.5, $fn = 64);  
+            translate([-17.5,14,38]) cube([35,10,2]);
+            translate([0,24,17.5]) rotate([90,0,0]) cylinder(h = 6, r = 1.5, $fn = 64);
         }
-        translate([0,25,17.5]) rotate([90,0,0]) cylinder(h = 8, r = 1.6, $fn = 64);
+        
         loecher_head_buttom();
     }
 
@@ -147,8 +148,8 @@ module servo_case() {
 }
 
 module loecher_head_buttom() {
-        translate([12,17,39])  cylinder(h = 10, r = 1.7, $fn = 64, center=true);
-        translate([-12,17,39])  cylinder(h = 10, r = 1.7, $fn = 64, center=true);
+        translate([12,19,39])  cylinder(h = 10, r = 1.7, $fn = 64, center=true);
+        translate([-12,19,39])  cylinder(h = 10, r = 1.7, $fn = 64, center=true);
         translate([12,-1,39])  cylinder(h = 10, r = 1.7, $fn = 64, center=true);
         translate([-12,-1,39])  cylinder(h = 10, r = 1.7, $fn = 64, center=true);
 }
@@ -157,7 +158,7 @@ module head_buttom() {
 
     difference() {
         union() {
-            translate([0,8,41]) cube([35,30,2], center=true); 
+            translate([0,9,41]) cube([35,31,2], center=true); 
             translate([0,0,46]) cube([7,68,12], center=true); 
             translate([-18,8,46]) cube([30,7,12], center=true); 
             
@@ -172,27 +173,27 @@ module head_buttom() {
 }
 
 module loecher_upper_head() {
-        translate([-34,0,49])  rotate([0,90,0]) cylinder(h = 20, r = 1.7, $fn = 64, center=true);
+        translate([-34,8,49])  rotate([0,90,0]) cylinder(h = 20, r = 1.7, $fn = 64, center=true);
         translate([0,0,49])  rotate([90,0,0]) cylinder(h = 120, r = 1.7, $fn = 64, center=true);
 }
 
 module head() {
+
+    difference() {
+        translate([30,-5,20]) cube([8,3,20],center=true);
+        #translate([27,-34,10]) kamera();
+    }
+
     difference() {
         union() {
-            translate([34,0,35]) cube([2,70,50],center=true);
-            translate([-34,0,35]) cube([2,70,50],center=true);
-
-            translate([0,34,35])  cube([70,2,50],center=true);  
-            //translate([0,34,17.5]) rotate([90,0,0]) cylinder(h = 2, r = 23, $fn = 64, center=true);  
-
-            translate([0,-34,35])  cube([70,2,50],center=true);  
-            //translate([0,-34,17.5]) rotate([90,0,0]) cylinder(h = 2, r = 23, $fn = 64, center=true);  
-            translate([0,0,15])  cube([70,70,2],center=true);  
+            translate([0,0,35]) cube([69,69,50],center=true);
         }
-        translate([30,18,40])  rotate([0,90,0]) cylinder(h = 40, r = 5, $fn = 64, center=true);
-        translate([30,-18,40])  rotate([0,90,0]) cylinder(h = 40, r = 5, $fn = 64, center=true);
-        translate([0,1,15])  cube([58,45,10],center=true);  
+        translate([0,0,37]) cube([66,66,50],center=true);
+        //translate([30,20,40])  rotate([0,90,0]) cylinder(h = 40, r = 5, $fn = 64, center=true);
+        //translate([30,-20,40])  rotate([0,90,0]) cylinder(h = 40, r = 5, $fn = 64, center=true);
+        translate([0,1,14])  cube([58,45,10],center=true);  
         loecher_upper_head();
+        #translate([27,-34,10]) kamera();
     }
     
 
@@ -201,10 +202,25 @@ module head() {
 module top(){
     head_buttom();
     neck_link();
+    servo_case();
     neck();
     stift();
     head();
 }
-neck_link();
+
+module kamera() {
+    cube([3,28,40]);
+    translate([0,9.75,28]) cube([6,8,8]);
+    translate([-9,23,13]) cube([10,3,20]);
+    translate([-9,1,13]) cube([10,3,20]);
+    translate([0,13.75,32]) rotate([0,90,0]) cylinder(h = 11, r = 4.5, $fn = 64);
+}
+
+
+//head_buttom();
+//servo_case();
+//head();
+stift();
+//neck_link();
 //neck();
 //top();
