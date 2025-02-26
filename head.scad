@@ -180,20 +180,27 @@ module loecher_upper_head() {
 module head() {
 
     difference() {
+        union() {
         translate([30,-5,20]) cube([8,3,20],center=true);
+        translate([30,-19,11])  cube([8,30,2],center=true);  
+        
+        }
         #translate([27,-34,10]) kamera();
     }
 
     difference() {
         union() {
             translate([0,0,35]) cube([69,69,50],center=true);
+            
         }
-        translate([0,0,37]) cube([66,66,50],center=true);
+        translate([0,0,35]) cube([66,66,51],center=true);
         //translate([30,20,40])  rotate([0,90,0]) cylinder(h = 40, r = 5, $fn = 64, center=true);
         //translate([30,-20,40])  rotate([0,90,0]) cylinder(h = 40, r = 5, $fn = 64, center=true);
-        translate([0,1,14])  cube([58,45,10],center=true);  
+        //translate([0,1,14])  cube([58,45,10],center=true);  
+
         loecher_upper_head();
         #translate([27,-34,10]) kamera();
+        #translate([21,13,42]) rotate([-90,0,-90])lidar();
     }
     
 
@@ -216,11 +223,48 @@ module kamera() {
     translate([0,13.75,32]) rotate([0,90,0]) cylinder(h = 11, r = 4.5, $fn = 64);
 }
 
+module head_top() {
+   difference() {
+      translate([0,0,59]) cube([69,69,6],center=true);
+      translate([0,0,58]) cube([63,63,6],center=true);
+      translate([-20,-20,58]) cylinder(h = 11, r = 3.5, $fn = 64);
+      head();
+   
+   }
+
+
+}
+
+module lidar() {
+    difference() {
+        union() {
+            linear_extrude(height=12) hull() {
+                translate([-5.5, -3.25]) circle(r=7);
+                translate([5.5, -3.25]) circle(r=7);
+                translate([-9, 6.25]) circle(r=4);
+                translate([9, 6.25]) circle(r=4);
+            }
+            translate([5.25,0,12]) cylinder(h = 2, r = 5.25, $fn = 64);
+            translate([-5.25,0,12]) cylinder(h = 2, r = 5.25, $fn = 64);
+
+            translate([15,0,0]) cylinder(h = 14, r = 1.7, $fn = 64);
+            translate([-15,0,0]) cylinder(h = 14, r = 1.7, $fn = 64);
+        }
+    translate([0,0,13.5]) cube([1,10,3], center=true);
+    }
+}
+
+
+
+
+
+//linear_extrude(height=3) rounded_polygon2();
 
 //head_buttom();
 //servo_case();
-//head();
-stift();
+head();
+//head_top();
+//stift();
 //neck_link();
 //neck();
 //top();

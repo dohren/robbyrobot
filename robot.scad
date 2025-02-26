@@ -872,7 +872,7 @@ module show_robot() {
     //rotate([90,0,0])  
     torso_side();
     //rotate([270,0,0]) 
-    mirror([0, 1, 0]) torso_side(); 
+    //mirror([0, 1, 0]) torso_side(); 
     torso_front();
     //rotate([0,-90,0]) 
     torso_back();
@@ -887,7 +887,7 @@ module show_robot() {
     //rotate([0,270,0]) 
     //skeleton_front();
     //skeleton_back();
-    //shoulders_querbalken();
+    shoulders_querbalken();
     //servo_plate();
     //rotate([0,-90,0]) 
     shoulder_front();
